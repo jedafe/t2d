@@ -581,10 +581,10 @@ foremIntro
                 dokku ps:scale nforem web=1 sidekiq_worker=1
                 wait
                 echo "${YELLOW}Limiting Webworker Memory to 512M${END}"
-                dokku resource:limit --memory 512m --process-type web nforem
+                dokku resource:limit --memory 4512m --process-type web nforem
                 wait
                 echo "${YELLOW}Limiting Sidekiq Memory to 512M${END}"
-                dokku resource:limit --memory 512m --process-type sidekiq_worker nforem
+                dokku resource:limit --memory 4512m --process-type sidekiq_worker nforem
                 wait
                 echo "${YELLOW}Setting up Optimisation ENV Variables${END}"
                 dokku config:set nforem --no-restart MALLOC_ARENA_MAX=2 JEMALLOC_ENABLED=true WEB_CONCURRENCY=2 RUBY_GC_HEAP_GROWTH_FACTOR=1.03 PGBOUNCER_PREPARED_STATEMENTS=false DATABASE_POOL_SIZE=5 RAILS_MAX_THREADS=5 
@@ -680,7 +680,7 @@ foremIntro
                 wait
                 dokku git:set nforem deploy-branch main
                 wait
-                dokku git:sync --build nforem https://github.com/akhil-naidu/forem.git &
+                dokku git:sync --build nforem https://github.com/jedafe/forem.git &
                 process_id=$!
                 wait $process_id
                 echo "Exit status: $?";
